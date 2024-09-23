@@ -2,12 +2,13 @@
 
 require './../vendor/autoload.php';
 
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-use Monolog\Handler\JsonHandler;
+use Monolog\Handler\JsonHandler; // Make sure this is included
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__);
@@ -18,12 +19,14 @@ if (!file_exists($configFile)) {
     die("Error: Configuration file '$configFile' not found.");
 }
 $config = json_decode(file_get_contents($configFile), true);
-
+// Initialize Monolog based on LOGGER environment variable
 $logger = new Logger('email_validator');
 $logType = $_ENV['LOGGER'];
 
 if ($logType === 'json' || $logType === 'both') {
-    $logger->pushHandler(new JsonHandler('logs/' . $_ENV['LOG_FILE'], Logger::DEBUG));
+    // Correctly instantiate JsonHandler
+    $jsonHandler = new JsonHandler('logs/' . $_ENV['LOG_FILE'], Logger::DEBUG); 
+    $logger->pushHandler($jsonHandler); // Pass the instance to pushHandler
 }
 
 if ($logType === 'mysql' || $logType === 'both') {
