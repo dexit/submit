@@ -1,0 +1,22 @@
+{
+    "name": "dexit/submit",
+    "require": {
+        "monolog/monolog": "^3.7",
+        "wp-cli/wp-cli": "^2.11",
+        "wp-cli/wp-cli-bundle": "^2.11",
+        "vlucas/phpdotenv": "^5.6",
+        "spatie/db-dumper": "^3.6",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dexit\\Submit\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rihards Mantejs",
+            "email": "dexit@dyc.lv"
+        }
+    ]
+}
